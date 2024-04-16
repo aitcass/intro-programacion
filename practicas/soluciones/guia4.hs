@@ -76,8 +76,29 @@ todosDigitosIguales n
 --Ejercicio 8
 iesimoDigito :: Integer ->Integer ->Integer
 iesimoDigito n i = mod (div n (10 ^ ((cantDigitos n) - i))) 10 
-    where 
-        cantDigitos :: Integer ->Integer
-        cantDigitos n
-            | div n 10 <= 0 = 1
-            | otherwise = 1 + cantDigitos (div n 10)
+
+cantDigitos :: Integer ->Integer
+cantDigitos n
+    | div n 10 <= 0 = 1
+    | otherwise = 1 + cantDigitos (div n 10)
+        
+
+--Ejercicio 9
+--n es capicua si:
+    --n tiene un dijito
+        -- n < 10
+    --n1 n2 ... nn == nn ... n2 n1
+        --n1 == nn && n2 == nn-1 && n3 == nn-2 && ...
+
+esCapicua :: Integer -> Bool
+esCapicua n
+    | n < 10 = True
+    | div n (10 ^ ((cantDigitos n) - 1)) == mod n 10 = esCapicua (div (mod n (10 ^ ((cantDigitos n) - 1))) 10)
+    --si el primer dijito = ultimo dijito => sacar primer y ultimo dijito y hacer lo mimsmo
+    --en sc: primerDijito n == ultimoDijito n = esCapicua (sacarPrimerUltimoDijito n)
+    | otherwise = False
+
+--Ejercicio 10
+f10a :: Integer -> Integer --2^(n+1)-1
+f10a 0 = 1
+f10a n = (2 ^ n) + f10a (n - 1)
