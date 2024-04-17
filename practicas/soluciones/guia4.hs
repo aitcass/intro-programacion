@@ -1,5 +1,5 @@
 --Ejercicio factorial
-factorial :: Int -> Int
+factorial :: Integer -> Integer
 factorial n | n == 0 = 1
             | n > 0 = n * factorial (n - 1)
     
@@ -102,3 +102,33 @@ esCapicua n
 f10a :: Integer -> Integer --2^(n+1)-1
 f10a 0 = 1
 f10a n = (2 ^ n) + f10a (n - 1)
+
+f10b :: Integer -> Float -> Float
+f10b 1 q = q
+f10b n q = (q ^ n) + f10b (n - 1) q
+
+f10c :: Integer -> Float -> Float
+f10c 1 q = q + (q ^ 2)
+f10c n q = f10b (2 * n) q
+
+f10d :: Integer -> Float -> Float
+f10d n q = (f10c n q) - (f10b (n - 1) q)
+
+--Ejercicio 11
+eAprox :: Integer -> Float
+eAprox 0 = 1
+eAprox n = 1 / fromIntegral (factorial n) + eAprox (n - 1)
+
+e :: Float
+e = eAprox 10
+
+--Ejercicio 12
+raizDe2Aprox :: Integer -> Float
+raizDe2Aprox 1 = 1
+raizDe2Aprox n = an n - 1
+    where
+        an :: Integer -> Float
+        an 1 = 2 
+        an ene = 2 + (1 / (an (ene - 1)))
+
+--Ejericio 13
