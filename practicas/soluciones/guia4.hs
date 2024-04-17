@@ -132,3 +132,26 @@ raizDe2Aprox n = an n - 1
         an ene = 2 + (1 / (an (ene - 1)))
 
 --Ejericio 13
+f13 :: Integer -> Integer -> Integer
+f13 1 1 = 1
+f13 1 m = truncate (f10b m 1.0)
+f13 n 1 = n * n
+f13 n m = suma n m + suma (n - 1) m
+    where
+        suma :: Integer -> Integer -> Integer
+        suma n 1 = n
+        suma n m = n ^ m + suma n (m - 1)
+
+--Ejercicio 14
+sumaPotencias :: Integer -> Integer -> Integer -> Integer
+sumaPotencias q n m = truncate (f10b n (fromIntegral q) * f10b m (fromIntegral q))
+
+--Ejercicio 15
+sumaRacionales :: Integer -> Integer -> Float
+sumaRacionales 1 1 = 1.0
+--sumaRacionales p 1 = FALTA
+sumaRacionales p q = sumat p q + sumat (p - 1) q
+    where
+        sumat :: Integer -> Integer -> Float
+        sumat p 1 = fromIntegral p
+        sumat p q = (fromIntegral p) / (fromIntegral q) + sumat p (q - 1)
