@@ -132,6 +132,9 @@ raizDe2Aprox n = an n - 1
         an ene = 2 + (1 / (an (ene - 1)))
 
 --Ejericio 13
+--NOTA: Habria que hacer una funcion sumatoria 
+    -- a la que le puedas poner cualquier cose como termino
+    -- pejmplo: "sumatoria" de i a n de "sumatoria" j m de i ^ j
 f13 :: Integer -> Integer -> Integer
 f13 1 1 = 1
 f13 1 m = truncate (f10b m 1.0)
@@ -148,10 +151,75 @@ sumaPotencias q n m = truncate (f10b n (fromIntegral q) * f10b m (fromIntegral q
 
 --Ejercicio 15
 sumaRacionales :: Integer -> Integer -> Float
+sumaRacionales p q | p == 1 = sumaRacAux 1 q
+                   | otherwise = sumaRacAux p q + sumaRacionales (p-1) q 
+    where
+        sumaRacAux :: Integer -> Integer -> Float
+        sumaRacAux p q | q == 1 = fromIntegral p 
+                       | otherwise = (fromIntegral p) / (fromIntegral q) + sumaRacAux p (q-1)
+
+{- sumaRacionales :: Integer -> Integer -> Float
 sumaRacionales 1 1 = 1.0
---sumaRacionales p 1 = FALTA
 sumaRacionales p q = sumat p q + sumat (p - 1) q
     where
         sumat :: Integer -> Integer -> Float
         sumat p 1 = fromIntegral p
         sumat p q = (fromIntegral p) / (fromIntegral q) + sumat p (q - 1)
+-}
+--Ejercicio 16
+menorDivisor :: Integer -> Integer
+menorDivisor n = menorDivisorDesde n 2
+    where
+        menorDivisorDesde :: Integer -> Integer -> Integer
+        menorDivisorDesde n k
+            | mod n k == 0 = k
+            | otherwise = menorDivisorDesde n (k + 1)
+
+esPrimo :: Integer -> Bool
+esPrimo 1 = True
+esPrimo n = menorDivisor n == n
+
+sonCoprimos :: Integer -> Integer -> Bool
+sonCoprimos x y = coprimosAux x y 2
+    where
+        coprimosAux :: Integer -> Integer -> Integer -> Bool
+        coprimosAux x y divisor
+            | divisor > x || divisor > y = True
+            | (esDibisible x divisor) && (esDibisible y divisor) = False
+            | otherwise = coprimosAux x y (divisor + 1)
+
+nEsimoPrimo :: Integer -> Integer
+nEsimoPrimo 1 = 1
+nEsimoPrimo n = nEsimoPrimoAux n 0 1
+    where
+        nEsimoPrimoAux :: Integer -> Integer -> Integer -> Integer
+        nEsimoPrimoAux n cont aux
+            | esPrimo aux && cont == n - 1 = aux
+            | esPrimo aux = nEsimoPrimoAux n (cont + 1) (aux + 1)
+            | otherwise = nEsimoPrimoAux n cont (aux + 1)
+
+--Ejercicio 17
+esFibonacci :: Integer -> Bool
+esFibonacci n = esfiboacciAux n 0
+    where
+        esfiboacciAux :: Integer -> Integer -> Bool
+        esfiboacciAux n cont
+            | fibonacci cont == n = True
+            | fibonacci cont > n = False
+            | fibonacci cont < n = esfiboacciAux n (cont + 1)
+
+--Ejercicio 18
+mayorDijitoPar :: Integer -> Integer
+mayorDijitoPar n
+    | n < 10 && mod n 2 /= 0 = -1
+    | n < 10 && mod n 2 == 0 = n
+    | ultimoDigito n >= mayorDijitoPar (sacarUltimo n) && esPar (ultimoDigito n) = ultimoDigito n
+    | ultimoDigito n < mayorDijitoPar (sacarUltimo n) = mayorDijitoPar (sacarUltimo n)
+    | otherwise = mayorDijitoPar (sacarUltimo n)
+
+ultimoDigito :: Integer -> Integer
+ultimoDigito n = mod n 10
+sacarUltimo :: Integer -> Integer
+sacarUltimo n = div n 10
+esPar :: Integer -> Bool
+esPar n = mod n 2 == 0
