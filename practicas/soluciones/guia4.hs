@@ -189,14 +189,13 @@ sonCoprimos x y = coprimosAux x y 2
             | otherwise = coprimosAux x y (divisor + 1)
 
 nEsimoPrimo :: Integer -> Integer
-nEsimoPrimo 1 = 1
-nEsimoPrimo n = nEsimoPrimoAux n 0 1
+nEsimoPrimo 1 = 2
+nEsimoPrimo n = nEsimoPrimoAux (nEsimoPrimo (n - 1))
     where
-        nEsimoPrimoAux :: Integer -> Integer -> Integer -> Integer
-        nEsimoPrimoAux n cont aux
-            | esPrimo aux && cont == n - 1 = aux
-            | esPrimo aux = nEsimoPrimoAux n (cont + 1) (aux + 1)
-            | otherwise = nEsimoPrimoAux n cont (aux + 1)
+        nEsimoPrimoAux :: Integer -> Integer
+        nEsimoPrimoAux n
+            | esPrimo (n + 1) = n + 1
+            | otherwise = nEsimoPrimoAux (n + 1)
 
 --Ejercicio 17
 esFibonacci :: Integer -> Bool
@@ -223,3 +222,46 @@ sacarUltimo :: Integer -> Integer
 sacarUltimo n = div n 10
 esPar :: Integer -> Bool
 esPar n = mod n 2 == 0
+
+--Ejercicio 19
+esSumaInicialDePrimos :: Integer -> Bool
+esSumaInicialDePrimos n = esSumaInicialDePrimosAux n 1
+    where 
+        esSumaInicialDePrimosAux :: Integer -> Integer -> Bool
+        esSumaInicialDePrimosAux n aux
+            | sumaPrimos aux > n = False
+            | sumaPrimos aux < n = esSumaInicialDePrimosAux n (aux + 1)
+            | otherwise = True
+
+sumaPrimos :: Integer -> Integer
+sumaPrimos 1 = 2
+sumaPrimos n = nEsimoPrimo n + sumaPrimos (n - 1)
+
+--Ejercicio 20 revisar
+tomaValorMax :: Integer -> Integer -> Integer
+tomaValorMax n m | (n == m) = sumaDivisores(n)
+                 | otherwise = max (sumaDivisores (n)) (tomaValorMax (n+1) m)
+
+sumaDivisores :: Integer -> Integer
+sumaDivisores n = sumaDivisoresDesde n 1
+
+sumaDivisoresDesde :: Integer -> Integer -> Integer
+sumaDivisoresDesde n k | (k == n) = n 
+                       | (k < n) && (mod n k == 0) = k + sumaDivisoresDesde n (k+1)
+                       | (k > n) = 0
+                       | otherwise = sumaDivisoresDesde n (k+1)
+
+--Ejercicio 21 revisar
+pitagoras :: Integer -> Integer -> Integer -> Integer
+pitagoras 0 n r = cantidadXmenorY n (r^2)   
+pitagoras m 0 r = cantidadXmenorY m (r^2) 
+pitagoras m n r = pitagoras (m-1) n r + cantidadXmenorY n (r^2 - m^2)
+
+cantidadXmenorY :: Integer -> Integer -> Integer
+cantidadXmenorY x y = cantidadXmenorYDesde x y 0
+
+cantidadXmenorYDesde :: Integer -> Integer -> Integer -> Integer
+cantidadXmenorYDesde x y k | (k < x) && (k^2 <= y) = 1 + cantidadXmenorYDesde x y (k+1)
+                           | (k < x) = cantidadXmenorYDesde x y (k+1)
+                           | (k == x) && (k^2 <= y) = 1
+                           | (k == x) = 0 
