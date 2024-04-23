@@ -222,3 +222,32 @@ aplanarConNBlancos (x:xs) n = x ++ (nBlancos n) ++ aplanarConNBlancos xs n
 nBlancos :: Integer -> [Char]
 nBlancos 1 = [' ']
 nBlancos n = ' ' : nBlancos (n - 1)
+
+
+--Ejercicio 5
+--[1]
+sumaAcumulada :: (Num t) => [t] -> [t]
+sumaAcumulada [] = []
+sumaAcumulada [x] = [x]
+sumaAcumulada (x:y:xs) = x : sumaAcumulada (x + y:xs)
+
+--[2]
+-- Función para descomponer una lista de enteros en sus factores primos
+descomponerEnPrimos :: [Integer] -> [[Integer]]
+descomponerEnPrimos [] = []
+descomponerEnPrimos (x:xs) = factoresPrimos x : descomponerEnPrimos xs
+
+-- Función para encontrar los factores primos de un número
+factoresPrimos :: Integer -> [Integer]
+factoresPrimos n = factoresPrimosAux n 2
+    where
+        factoresPrimosAux 1 _ = []
+        factoresPrimosAux n divisor
+            | n `mod` divisor == 0 = divisor : factoresPrimosAux (n `div` divisor) divisor
+            | otherwise = factoresPrimosAux n (divisor + 1)
+
+-- Función para descomponer una lista de enteros en sus factores primos
+descomponerEnPrimos :: [Integer] -> [[Integer]]
+descomponerEnPrimos [] = []
+descomponerEnPrimos (x:xs) = factoresPrimos x : descomponerEnPrimos xs
+
