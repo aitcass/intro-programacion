@@ -151,3 +151,26 @@ minimo (x:xs)
     | otherwise = minimo xs
 
 --Ejercicio 4
+--[a]
+sacarBlancosRepetidos :: [Char] -> [Char]
+sacarBlancosRepetidos [c] = [c]
+sacarBlancosRepetidos (x:xs)
+    | x == primero xs && x == ' ' = sacarBlancosRepetidos xs
+    | otherwise = x : sacarBlancosRepetidos xs
+
+--[b]
+contarPalabras :: [Char] -> Integer
+contarPalabras texto = 1 + contarBlancos (sacarBlancosRepetidos texto)
+
+contarBlancos :: [Char] -> Integer
+contarBlancos [] = 0
+contarBlancos (x:xs)
+    | x == ' ' = 1 + contarBlancos xs
+    |otherwise = contarBlancos xs
+--habria que tambien sacar blancos de adelante y atras si los hubiera
+
+--[c]
+--[d]
+--[e]
+--[f]
+--[g}
