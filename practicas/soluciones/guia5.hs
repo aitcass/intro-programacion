@@ -144,6 +144,7 @@ ordenar :: [Integer] -> [Integer]
 ordenar [x] = [x]
 ordenar l = minimo l : ordenar (quitar (minimo l) l)
 
+--auxiliar
 minimo :: [Integer] -> Integer
 minimo [x] = x
 minimo (x:xs)
@@ -162,6 +163,7 @@ sacarBlancosRepetidos (x:xs)
 contarPalabras :: [Char] -> Integer
 contarPalabras texto = 1 + contarBlancos (sacarBlancosRepetidos texto)
 
+--auxiliar
 contarBlancos :: [Char] -> Integer
 contarBlancos [] = 0
 contarBlancos (x:xs)
@@ -170,7 +172,53 @@ contarBlancos (x:xs)
 --habria que tambien sacar blancos de adelante y atras si los hubiera
 
 --[c]
+palabras :: [Char] -> [[Char]]
+palabras lista = palabrasAux (sacarBlancosRepetidos lista) []
+
+--auxiliar: necesito ir armando las palabras y sumarlas a una nueva lista vacia
+palabrasAux :: [Char] -> [Char] -> [[Char]]
+palabrasAux [] nueva = [nueva]
+palabrasAux (x:xs) nueva
+    | x /= ' ' = palabrasAux xs (nueva ++ [x]) --si no hay espacio sigo con la palabra y sumo la letra en la que estoy
+    | otherwise = [nueva] ++ palabrasAux xs []
+
 --[d]
+-- Definimos una función auxiliar para comparar la longitud de las palabras
+palabraMasLarga :: [Char] -> [Char]
+palabraMasLarga texto = palabraMasLargaAux (palabras texto)
+
+-- auxiliares:
+palabraMasLargaAux :: [[Char]] -> [Char]
+-- Si la lista está vacía, devolvemos una cadena vacía
+palabraMasLargaAux [] = []
+-- Si la lista tiene solo una palabra, esa es la más larga
+palabraMasLargaAux [palabra] = palabra
+-- Si la lista tiene al menos dos palabras, comparamos sus longitudes
+palabraMasLargaAux (x:xs) = compararLongitud x (palabraMasLargaAux xs)
+
+compararLongitud :: [Char] -> [Char] -> [Char]
+compararLongitud palabra1 palabra2
+    | longitud palabra1 >= longitud palabra2 = palabra1
+    | otherwise = palabra2
+
 --[e]
+aplanar :: [[Char]] -> [Char]
+aplanar [] = " "
+aplanar [x] = x
+aplanar (x:xs) = x ++ aplanar xs
+
 --[f]
+aplanarConBlancos :: [[Char]] -> [Char]
+aplanarConBlancos [] = " "
+aplanarConBlancos [x] = x
+aplanarConBlancos (x:xs) = x ++ " " ++ aplanarConBlancos xs
+
 --[g}
+aplanarConNBlancos :: [[Char]] -> Integer -> [Char]
+aplanarConNBlancos [] n = " "
+aplanarConNBlancos [x] n = x
+aplanarConNBlancos (x:xs) n = x ++ (nBlancos n) ++ aplanarConNBlancos xs n
+
+nBlancos :: Integer -> [Char]
+nBlancos 1 = [' ']
+nBlancos n = ' ' : nBlancos (n - 1)
