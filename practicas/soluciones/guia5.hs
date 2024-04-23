@@ -149,3 +149,5 @@ minimo [x] = x
 minimo (x:xs)
     | x < minimo xs = x 
     | otherwise = minimo xs
+
+--Ejercicio 4

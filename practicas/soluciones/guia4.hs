@@ -132,9 +132,7 @@ raizDe2Aprox n = an n - 1
         an ene = 2 + (1 / (an (ene - 1)))
 
 --Ejericio 13
---NOTA: Habria que hacer una funcion sumatoria 
-    -- a la que le puedas poner cualquier cose como termino
-    -- pejmplo: "sumatoria" de i a n de "sumatoria" j m de i ^ j
+-- sumatoria de i a n de sumatoria j m de i ^ j
 f13 :: Integer -> Integer -> Integer
 f13 1 1 = 1
 f13 1 m = truncate (f10b m 1.0)
