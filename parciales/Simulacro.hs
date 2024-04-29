@@ -1,3 +1,5 @@
+module Simulacro where
+    
 relacionesValidas :: [(String, String)] -> Bool
 relacionesValidas [] = False
 relacionesValidas [(a,b)]
