@@ -49,3 +49,76 @@ def es_par(numero: int):
 #2.7
 def cantidad_de_pizzas(amigos: int, min_porciones: int):
   return(math.ceil(amigos*min_porciones/8))
+
+#ejercicio 3
+#3.1
+def alguno_es_0(n1: int, n2: int):
+  return(n1 == 0 or n2 == 0)
+
+#3.2
+def ambos_son_0(n1: int, n2: int):
+  return(n1 == 0 and n2 == 0)
+
+#3.3
+def es_nombre_largo():
+  nombre = input('nombre: ')
+  long = len(nombre)
+  return(long >= 3 and long <= 8)
+
+#3.4
+def es_bisiesto(a: str):
+  return(a % 400 == 0 or (a % 4 == 0 and a % 100 != 0))
+
+#ejercicio 4
+#4.1
+def peso_pino(altura: float):
+  if altura > 3:
+   return 900 + (altura - 3) * 200
+  else:
+    return altura * 300
+
+#4.2
+def es_peso_util(peso: float):
+  return peso >= 400 and peso <= 1000
+
+#4.3
+def sirve_pino(altura: float):
+  return es_peso_util(peso_pino(altura))
+
+#ejercicio 5
+#5.1
+def item1(numero: int):
+  if es_par(numero): return numero * 2
+  else: return numero
+
+#5.2
+def item2(numero: int):
+  if es_par(numero): return numero
+  else: return numero + 1
+
+#5.3
+def item3(numero: int):
+  if numero % 3 == 0: return numero * 2
+  elif numero % 9 == 0: return numero * 3
+  else: return numero
+
+#5.4
+def item4(nombre: str):
+  long = len(nombre)
+  if long >= 5: return "Tu nombre tiene muchas letras"
+  else: return "Tu nombre tiene menos de 5 letras"
+
+#5.5
+def item5(numero: float):
+  if numero <= 5: return "Menor a 5"
+  elif numero >= 10 and numero <= 20: return "Entre 10 y 20"
+  elif numero >= 20: return "Mayor a 20"
+
+#5.6
+def item6(sexo: chr, edad: int):
+  if sexo == 'F' and edad >= 18 and edad <= 60:
+    return "te toca trabajar"
+  if sexo == 'M' and edad >= 18 and edad <= 65:
+    return "te toca trabajar"
+  else:
+    "Anda de vacaciones"
