@@ -87,38 +87,80 @@ def sirve_pino(altura: float):
 
 #ejercicio 5
 #5.1
-def item1(numero: int):
+def item51(numero: int):
   if es_par(numero): return numero * 2
   else: return numero
 
 #5.2
-def item2(numero: int):
+def item52(numero: int):
   if es_par(numero): return numero
   else: return numero + 1
 
 #5.3
-def item3(numero: int):
+def item53(numero: int):
   if numero % 3 == 0: return numero * 2
   elif numero % 9 == 0: return numero * 3
   else: return numero
 
 #5.4
-def item4(nombre: str):
+def item54(nombre: str):
   long = len(nombre)
   if long >= 5: return "Tu nombre tiene muchas letras"
   else: return "Tu nombre tiene menos de 5 letras"
 
 #5.5
-def item5(numero: float):
+def item55(numero: float):
   if numero <= 5: return "Menor a 5"
   elif numero >= 10 and numero <= 20: return "Entre 10 y 20"
   elif numero >= 20: return "Mayor a 20"
 
 #5.6
-def item6(sexo: chr, edad: int):
+def item56(sexo: chr, edad: int):
   if sexo == 'F' and edad >= 18 and edad <= 60:
     return "te toca trabajar"
   if sexo == 'M' and edad >= 18 and edad <= 65:
     return "te toca trabajar"
   else:
     "Anda de vacaciones"
+
+#ejercicio 6
+#6.1
+def item61 ():
+  i: int = 1
+  while i <= 10:
+    print(i)
+    i += 1
+
+#6.2
+def item62 ():
+  i: int = 10
+  while i <= 40:
+    if i % 2 == 0: print(i)
+    i += 1
+
+#6.3
+def item63 ():
+  i: int = 0
+  while i < 10:
+    print("eco")
+    i += 1
+
+#6.4
+def item64 (n: int):
+  while n >= 1:
+    print(n)
+    n -= 1
+  print("Despegue!")
+
+#6.5
+def item65 (partida: int, llegada: int):
+  while partida != llegada:
+    partida -= 1
+    print("Viajó un año al pasado, estamos en el año: ", partida)
+
+#6.6
+def item66 (partida: int, llegada: int):
+  while partida > llegada:
+    partida -= 20
+    print("Viajó 20 años al pasado, estamos en el año: ", partida)
+item66(2024, (-384))
