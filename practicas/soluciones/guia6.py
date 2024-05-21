@@ -163,4 +163,35 @@ def item66 (partida: int, llegada: int):
   while partida > llegada:
     partida -= 20
     print("Viajó 20 años al pasado, estamos en el año: ", partida)
-item66(2024, (-384))
+
+#ejercicio 7
+#7.1
+def item71 ():
+  for i in range(1,11):
+    print(i)
+
+#7.2
+def item72 ():
+  for i in range(10,41,2):
+    print(i)
+#7.3
+def item73 ():
+  for i in range(10):
+    print("eco")
+
+#7.4
+def item74 (n: int):
+  for i in range(n,1):
+    print(i)
+  print("Despegue!")
+#7.5
+def item75 (partida: str, llegada: str):
+  for i in range(partida-1, llegada, -1):
+    print("viajaste un anio al pasado estamos en el anio: ", i)
+
+#7.6
+def item76 (partida: str, llegada: str):
+  for i in range(partida, llegada, -20):
+    print("viajaste un 20 al pasado estamos en el anio: ", i)
+
+item75(2024,-384)
