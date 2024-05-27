@@ -163,7 +163,26 @@ def siete_y_medio ():
     else: print("perdiste")
 #Ejercicio 5
 #5.1
+def pertenece_a_cada_uno_v1 (s: list[list[int]], elemento: int):
+    res: list[bool] = []
+    for i in s:
+        if pertenece(i, elemento): res.append(True)
+        else: res.append(False)
+    return res
+#print(pertenece_a_cada_uno_v1([[1,2,3,4],[2,3,4,5],[3,4,5,6]], 2))
 #5.2
 #5.3
+def es_matriz (s: list[list[int]]):
+    res: bool = True
+    if len(s) > 0 and len(s[0]) > 0:
+        for i in s:
+            if len(i) != len(s[0]): res = False
+    return res
 #5.4
+def filas_ordenadas (m: list[list[int]]):
+    res: bool = True
+    for i in m:
+        if not ordenados(i): res = False
+    return res
+
 #5.5
