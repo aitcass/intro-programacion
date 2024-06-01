@@ -124,9 +124,91 @@ def calcular_promedio_por_estudiante(nombre_archivo_notas: str, nombre_archivo_p
             if linea[0] not in lus: lus.append(linea[0])
     with open(nombre_archivo_promedios, "w") as fpromedios:
         for i in lus:
-            fpromedios.write(i + "," + str(promedio_estudiante(nombre_archivo_notas, i)) + '\n')          
+            fpromedios.write(i + "," + str(promedio_estudiante(nombre_archivo_notas, i))  + '\n')          
 
 
 calcular_promedio_por_estudiante ("notas.csv", "promedios.csv")
 
-        
+
+#PARTE 2 PILAS
+from queue import LifoQueue as Pila
+import random
+#ejercicio 8       
+def generar_nros_al_azar (cantidad: int, desde: int, hasta: int) -> list[int]:
+    p = Pila()
+    len = 0
+    while len != cantidad:
+        numero: int = random.randint(desde, hasta)
+        print(numero)
+        p.put(numero)
+        len += 1
+    return(p)
+
+#ejercicio 9
+def cantidad_elementos(p: Pila) -> int:
+    l_recuperar = []
+    len: int = 0
+    while not p.empty():
+        l_recuperar.append(p.get())
+        len += 1
+    for i in l_recuperar: p.put(i)
+    return len
+
+#ejercicio 10
+def buscar_el_maximo(p: Pila) -> int:
+    l_recuperar: list[int] = []
+    max: int = 0
+    e: int = 0
+    while not p.empty():
+        e = p.get()
+        l_recuperar.append(e)
+        if e > max: max = e 
+    for i in l_recuperar: p.put(i)
+    return max
+
+#ejercicio 11
+def esta_bien_balanceada(s: str) -> bool:
+    cont: int = 0
+    for i in s:
+        if i == '(': cont = cont + 1
+        if i == ')': cont = cont - 1
+    return cont == 0
+
+#ejercicio 12
+def to_list2(linea_csv, sep: str):
+    lista: list[str] = []
+    temp: str = ""
+    for i in linea_csv:
+        if i != sep and i != '\n': temp += i
+        else: 
+            lista.append(temp)
+            temp = ""
+    if temp != "": lista.append(temp)
+    return lista
+
+def evaluar_expreion(s: str) -> float:
+    operandos: Pila = Pila()
+    operadores: list[chr] = ['+','-','*','/']
+    l = to_list2(s, " ")
+    for i in l:
+        if i in operadores: 
+            e1 = float(operandos.get(i))
+            e2 = float(operandos.get(i))
+            if i == '+': operandos.put(e2+e1)
+            if i == '-': operandos.put(e2-e1)
+            if i == '*': operandos.put(e2*e1)
+            if i == '/': operandos.put(e2/e1)
+        else: operandos.put(i)
+    return operandos.get()
+
+
+#testing 
+def crear_pila(l: list[int]):
+    p = Pila()
+    for i in l: p.put(i)
+    return p
+#print(buscar_el_maximo(crear_pila([])))
+
+
+
+print(evaluar_expreion("3 4 + 5 * 2 -"))
