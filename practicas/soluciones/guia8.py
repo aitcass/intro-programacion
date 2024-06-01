@@ -200,15 +200,3 @@ def evaluar_expreion(s: str) -> float:
             if i == '/': operandos.put(e2/e1)
         else: operandos.put(i)
     return operandos.get()
-
-
-#testing 
-def crear_pila(l: list[int]):
-    p = Pila()
-    for i in l: p.put(i)
-    return p
-#print(buscar_el_maximo(crear_pila([])))
-
-
-
-print(evaluar_expreion("3 4 + 5 * 2 -"))
