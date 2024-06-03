@@ -126,10 +126,6 @@ def calcular_promedio_por_estudiante(nombre_archivo_notas: str, nombre_archivo_p
         for i in lus:
             fpromedios.write(i + "," + str(promedio_estudiante(nombre_archivo_notas, i))  + '\n')          
 
-
-calcular_promedio_por_estudiante ("notas.csv", "promedios.csv")
-
-
 #PARTE 2 PILAS
 from queue import LifoQueue as Pila
 import random
@@ -200,3 +196,97 @@ def evaluar_expreion(s: str) -> float:
             if i == '/': operandos.put(e2/e1)
         else: operandos.put(i)
     return operandos.get()
+
+#PARTE 3 COLAS
+from queue import Queue as Cola
+#ejercicio 13
+def generar_numeros_al_azar (cantidad: int, desde: int, hasta: int) -> Cola:
+    c = Cola()
+    for i in range(cantidad):
+        c.put(random.randit(desde, hasta))
+    return Cola
+
+#ejercicio 14
+def cantidad_elementos(c: Cola) -> int:
+    longitud: int = 0
+    backup:list = []
+    while not c.empty():
+        backup.append(c.get())
+        longitud += 1
+    for i in range(len(backup)-1, -1, -1):
+        c.put(backup[i])
+    return longitud
+
+#ejercicio 15
+def busca_el_maximo(c: Cola) -> int:
+    longitud: int = 0
+    backup:list = []
+    maximo = 0
+    while not c.empty():
+        e = c.get()
+        backup.append(e)
+        if e > maximo: maximo = e
+        longitud += 1
+    for i in range(len(backup)-1, -1, -1):
+        c.put(backup[i])
+    return maximo
+
+#ejercicio 16
+#a
+def armar_secuencia_de_bingo() -> Cola:
+    c = Cola()
+    salieron: list[int] = []
+    for i in range(100): 
+        e = random.randint(0,99)
+        while e in salieron:
+            e = random.randint(0,99)
+        salieron.append(e)
+        c.put(e)
+    return c
+
+#b
+def jugar_carton_de_bingo(carton: list[int], bolillero: Cola[int]) -> int:
+    rondas: int = 0
+    cont: 0 = 0
+    while cont != 12:
+        e: int = bolillero.get()
+        if e in carton: 
+            cont += 1
+        rondas += 1
+    return rondas
+
+#ejercicio 17
+def n_pacientes_urgentes(c: Cola[(int,str,str)]) -> int:
+    cont: int  = 0
+    restaurar_cola: list = []
+    while not c.empty():
+        e = c.get
+        restaurar_cola.append(e)
+        if e[1] in range(1,4): cont += 1
+    for i in restaurar_cola:
+        c.put(i)
+    return cont
+
+#ejercicio 18
+
+
+#probar
+def toCola(lista):
+    c = Cola()
+    for i in lista:
+        c.put(i)
+    return c
+
+def toList(c: Cola):
+    l = []
+    while not c.empty():
+        l.append(c.get())
+    return l
+
+def repetidos(lista: list):
+    salidos: list[int] = []
+    repetidos: list[int] = []
+    for i in lista:
+        if i in salidos: repetidos.append(i)
+        salidos.append(i)
+    return repetidos
