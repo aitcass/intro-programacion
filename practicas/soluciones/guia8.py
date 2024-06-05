@@ -260,7 +260,7 @@ def n_pacientes_urgentes(c: Cola[(int,str,str)]) -> int:
     cont: int  = 0
     restaurar_cola: list = []
     while not c.empty():
-        e = c.get
+        e = c.get()
         restaurar_cola.append(e)
         if e[1] in range(1,4): cont += 1
     for i in restaurar_cola:
@@ -268,6 +268,34 @@ def n_pacientes_urgentes(c: Cola[(int,str,str)]) -> int:
     return cont
 
 #ejercicio 18
+def atencion_a_clientes (c: Cola[(str, int, bool, bool)]) -> Cola[(str, int, bool, bool)]:
+    restaurar: list[(str, int, bool, bool)] = []
+    prioridad: list[(str, int, bool, bool)] = []
+    preferencia: list[(str, int, bool, bool)] = []
+    resto: list[(str, int, bool, bool)] = []
+
+    #distribuyo todos los clientes
+    while not c.empty():
+        e = c.get()
+        restaurar.append(e)
+        if e[3] == True: prioridad.append(e)
+        elif e[2] == True: preferencia.append(e)
+        else: resto.append(e)
+
+    #guardo clientes en cola por orden
+    salida: Cola[(str, int, bool, bool)] = Cola()
+    for i in prioridad: salida.put(i)
+    for i in preferencia: salida.put(i)
+    for i in resto: salida.put(i)
+
+    #restauro cola
+    for i in restaurar: c.put(i)
+
+    return salida
+
+
+#PARTE 4 DICCIONARIOS
+
 
 
 #probar
@@ -290,3 +318,4 @@ def repetidos(lista: list):
         if i in salidos: repetidos.append(i)
         salidos.append(i)
     return repetidos
+
